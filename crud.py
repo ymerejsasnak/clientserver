@@ -1,7 +1,7 @@
 '''
 Jeremy Kansas
 CS 499
-Artifact 1 of 2
+Artifact 1 part 1 of 2
 Python to MongoDB interface
 Used as part of Category 1 and 3
 '''
