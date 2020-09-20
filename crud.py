@@ -18,16 +18,15 @@ class mongoCRUD:
     Class that wraps all functionality for interfacing with MongoDB
     '''
 
-    def connect(self, host_name, port):
+    def connect(self, hostname, port):
         '''
         Attempts to connect to MongoDB and
         stores the connection in self.client.
 
         Args:
-            host_name: host_name or mongo uri (ie 'localhost')
+            host_name: hostname or mongo uri (ie 'localhost')
             port: port number used
         '''
-
         # attempt connection
         self.client = MongoClient(hostname, port)
 
@@ -37,7 +36,7 @@ class mongoCRUD:
             self.client.admin.command('ismaster')
         # exit with message on failure
         except ConnectionFailure:
-            print("Connection Failure.")
+            print("MongoDB connection Failure.")
             exit()
 
 
@@ -50,7 +49,6 @@ class mongoCRUD:
             db_name: database name to use
             collection_name: collection name to use
         '''
-
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 

@@ -30,10 +30,7 @@ class stocksRestAPI(Bottle):
         self.route("/stocks/api/v1.0/updateStock/<ticker_symbol>", method="PUT", callback=self.update)
         self.route("/stocks/api/v1.0/deleteStock/<ticker_symbol>", method="DELETE", callback=self.delete)
 
-        self.route("/stocks/api/v1.0/stockReport", method="POST", callback=self.stock_report)
-        self.route("/stocks/api/v1.0/industryReport/<industry>", callback=self.industry_report)
 
-        self.crud = mongoCRUD()
 
     ### BASIC CRUD OPERATIONS ###
 
@@ -45,7 +42,7 @@ class stocksRestAPI(Bottle):
       try:
         document = request.json
         document["Ticker"] = ticker_symbol
-        result = self.crud.create(document)
+        result = crud.create(document)
       except Exception as e:
         result = e
       return str(result) + "\n"
@@ -56,7 +53,7 @@ class stocksRestAPI(Bottle):
       Read existing document from given ticker
       '''
       try:
-        result = self.crud.read({"Ticker" : ticker_symbol})
+        result = crud.read({"Ticker" : ticker_symbol})
       except Exception as e:
         result = e
       return str(result) + "\n"
@@ -68,7 +65,7 @@ class stocksRestAPI(Bottle):
       '''
       try:
         document = request.json
-        result = self.crud.update({"Ticker": ticker_symbol}, document)
+        result = crud.update({"Ticker": ticker_symbol}, document)
       except Exception as e:
         result = e
       return str(result) + "\n"
@@ -79,7 +76,7 @@ class stocksRestAPI(Bottle):
       Delete document that matches ticker_symbol
       '''
       try:
-        result = self.crud.delete({"Ticker" : ticker_symbol})
+        result = crud.delete({"Ticker" : ticker_symbol})
       except Exception as e:
         result = e
       return str(result) + "\n"
@@ -88,5 +85,9 @@ class stocksRestAPI(Bottle):
 
 
 if __name__ == '__main__':
+    crud = mongoCRUD()
+    crud.connect('localhost', 27017)
+    crud.set_collection('market', 'stocks')
+
     rest = stocksRestAPI()
     rest.run(host='localhost', port=8080, reloader=True)
