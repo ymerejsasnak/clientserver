@@ -10,8 +10,7 @@ Used as part of Category 1 and 3
 import json
 from bson import json_util
 from pymongo import MongoClient
-
-
+from pymongo.errors import ConnectionFailure
 
 
 class mongoCRUD:
@@ -19,23 +18,53 @@ class mongoCRUD:
     Class that wraps all functionality for interfacing with MongoDB
     '''
 
-    def __init__(self):
-        # connect to mongodb and store the connection
-        self.connection = MongoClient('localhost', 27017)
+    def connect(self, host_name, port):
+        '''
+        Attempts to connect to MongoDB and
+        stores the connection in self.client.
 
-        # specifcy db and collection to use
-        self.db_name = 'market'
-        self.collection_name = 'stocks'
-        self.db = self.connection[self.db_name]
-        self.collection = self.db[self.collection_name]
+        Args:
+            host_name: host_name or mongo uri (ie 'localhost')
+            port: port number used
+        '''
+
+        # attempt connection
+        self.client = MongoClient(hostname, port)
+
+        # check for success using dummy command
+        try:
+            # The ismaster command is cheap and does not require auth.
+            self.client.admin.command('ismaster')
+        # exit with message on failure
+        except ConnectionFailure:
+            print("Connection Failure.")
+            exit()
 
 
-    ## BASIC CRUD OPERATIONS ##
+    def set_collection(self, db_name, collection_name):
+        '''
+        Sets the active database and collection used by
+        subsequently called methods
+
+        Args:
+            db_name: database name to use
+            collection_name: collection name to use
+        '''
+
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
 
     def create(self, document):
         '''
-        <FINAL 2 A> Insert new document into 'collection'
-        Returns True on success, False on fail
+        Creates new document in current collection.
+
+        Args:
+            document: dictionary of key/value pairs to insert as document
+
+        Returns:
+            True on success
+            False on failure
         '''
         try:
             self.collection.insert_one(document)
@@ -47,8 +76,14 @@ class mongoCRUD:
 
     def read(self, query):
         '''
-        Read single document matching passed query document
-        Return JSON document, or given exception on failure
+        Reads single document matching passed query document
+
+        Args:
+            query: dict key/value pair to use as query
+
+        Returns:
+            String dump of JSON document on success
+            Exception on failure
         '''
         try:
             result = self.collection.find_one(query)
@@ -60,8 +95,15 @@ class mongoCRUD:
 
     def update(self, old, new):
         '''
-        Update document matching 'old' query with 'new' key/value
-        Return JSON doc on success, exception on failure
+        Updates document matching query "old" with key/value "new"
+
+        Args:
+            old: dictionary key/value as query to find in collection
+            new: new key/value to add to item
+
+        Returns:
+            String dump of JSON document on success
+            Exception on failure
         '''
         try:
             result = self.collection.update(old, {"$set" : new})
@@ -73,8 +115,14 @@ class mongoCRUD:
 
     def delete(self, query):
         '''
-        Delete document matching given query
-        Return JSON result on success, exception on fail
+        Deletes document matching given query
+
+        Args:
+            query: dictionary key/value as query to search for
+
+        Returns:
+            DeleteResult on success
+            Exception on fail
         '''
         try:
             doc = self.collection.find_one(query)
@@ -82,3 +130,9 @@ class mongoCRUD:
         except Exception as e:
             result = e
         return result
+
+
+if __name__ == '__main__':
+    crud = mongoCRUD()
+    crud.connect('localhost', 27017)
+    crud.set_collection('market', 'stocks')
