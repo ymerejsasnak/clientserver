@@ -85,55 +85,6 @@ class stocksRestAPI(Bottle):
       return str(result) + "\n"
 
 
-    ### SPECIALIZED OPERATIONS ###
-
-    #!!!! THESE DON'T WORK CORRECTLY YET 
-
-
-    def stock_report(self):
-      '''
-      Return a list of stock documents for each ticker in a json request list
-      '''
-      try:
-        ticker_list = request.json
-        result = []
-        # get the doc for each ticker and append it to result list
-        for ticker in ticker_list:
-          result.append(self.crud.read(ticker))
-        result = "\n".join(result) # this line is only to add spaces between documents to make screenshot more readable
-      except Exception as e:
-        result = e
-      return str(result) + "\n"
-
-
-    def industry_report(self, industry):
-      '''
-      Return the top five stocks in a given industry
-      (many possible metrics to use, currently this is based solely on "Return on Investment" field)
-      '''
-      try:
-        # get list of all tickers in an industry
-        ticker_list = self.crud.find_by_industry(industry)
-        result = []
-
-        # iterate through the tickers and build a list of {ticker, ROI} dictionaries
-        for ticker in ticker_list:
-          result.append({"Ticker": ticker, "ROI": json.loads(self.crud.read(ticker))["Return on Investment"]})
-
-        # sort that list, highest to lowest, based on the ROI value
-        result = sorted(result, key=lambda k: k["ROI"], reverse=True)
-
-        # return only the first 5 (as a string)
-        result = result[:5]
-
-      except Exception as e:
-        result = e
-
-      return str(result) + "\n"
-
-
-
-
 
 
 if __name__ == '__main__':
