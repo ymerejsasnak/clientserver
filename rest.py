@@ -9,8 +9,6 @@ Used as part of Category 1 and 3
 '''
 
 
-
-
 import json
 from bson import json_util
 import datetime
@@ -22,14 +20,16 @@ from crud import mongoCRUD
 
 
 class stocksRestAPI(Bottle):
+    
     def __init__(self):
         super(stocksRestAPI, self).__init__()
 
+
+    def route(self):
         self.route("/stocks/api/v1.0/createStock/<ticker_symbol>", method="POST", callback=self.create)
         self.route("/stocks/api/v1.0/getStock/<ticker_symbol>", method="GET", callback=self.read)
         self.route("/stocks/api/v1.0/updateStock/<ticker_symbol>", method="PUT", callback=self.update)
         self.route("/stocks/api/v1.0/deleteStock/<ticker_symbol>", method="DELETE", callback=self.delete)
-
 
 
     ### BASIC CRUD OPERATIONS ###
