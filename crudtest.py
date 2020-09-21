@@ -9,6 +9,8 @@ class testMongoCrudMethods(unittest.TestCase):
 
     def setUp(self):
         self.crud = mongoCRUD()
+        self.crud.connect('localhost', 27017)
+        self.crud.set_collection('market', 'stocks')
 
     def test_create(self):
         self.assertTrue(self.crud.create({"CREATE": "newdoc"}))
