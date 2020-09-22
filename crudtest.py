@@ -1,3 +1,10 @@
+'''
+Jeremy Kansas
+CS 499
+Artifact 1 TEST part 1 of 2
+Used as part of Category 1 and 3
+'''
+
 import unittest
 from crud import mongoCRUD
 from pymongo.results import DeleteResult

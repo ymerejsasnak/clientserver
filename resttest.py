@@ -1,3 +1,9 @@
+'''
+Jeremy Kansas
+CS 499
+Artifact 1 TEST part 2 of 2
+'''
+
 import unittest
 from rest import stocksRestAPI
 
