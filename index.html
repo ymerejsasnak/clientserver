@@ -1,25 +1,63 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>Database Access</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/index.css">
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8">
+        <title>Database Access</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+
+        <form action="/stocks/api/v1.0/createStock/" method="post">
+            <ul>
+                <li>
+                    <label for="ticker_create">Ticker:</label>
+                    <input type="text" id="ticker_create" name="ticker">
+                </li>
+                <li class="button">
+                    <button type="submit">Create Item</button>
+                </li>
+            </ul>
+        </form>
 
 
+        <form action="/stocks/api/v1.0/getStock/" method="get">
+            <ul>
+                <li>
+                    <label for="ticker_read">Ticker:</label>
+                    <input type="text" id="ticker_read" name="ticker">
+                </li>
+                <li class="button">
+                    <button type="submit">Read Item</button>
+                </li>
+            </ul>
+        </form>
 
-    <form action="/stocks/api/v1.0/getStock/" method="get">
-      <ul>
-        <li>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="user_name">
-        </li>
-      </ul>
-    </form>
+        <form action="/stocks/api/v1.0/updateStock/" method="put">
+            <ul>
+                <li>
+                    <label for="ticker_update">Ticker:</label>
+                    <input type="text" id="ticker_update" name="ticker">
+                </li>
+                <li class="button">
+                    <button type="submit">Update Item</button>
+                </li>
+            </ul>
+        </form>
 
 
+        <form action="/stocks/api/v1.0/deleteStock/" method="delete">
+            <ul>
+                <li>
+                    <label for="ticker_delete">Ticker:</label>
+                    <input type="text" id="ticker_delete" name="ticker">
+                </li>
+                <li class="button">
+                    <button type="submit">Delete Item</button>
+                </li>
+            </ul>
+        </form>
 
-  </body>
+
+    </body>
 </html>
