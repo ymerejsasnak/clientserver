@@ -29,7 +29,7 @@ class stocksRestAPI(Bottle):
         super(stocksRestAPI, self).__init__()
 
 
-    def route(self):
+    def setup_routing(self):
         '''
         Sets up routing url and callback method for each HTTP request
         '''
@@ -142,5 +142,5 @@ if __name__ == '__main__':
     crud.set_collection('market', 'stocks')
 
     rest = stocksRestAPI()
-    rest.route()
+    rest.setup_routing()
     rest.run(host='localhost', port=8080, reloader=True)
