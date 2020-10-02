@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Database Access</title>
-        <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="index.css">
         <script src="requests.js"></script>
     </head>
@@ -12,33 +11,34 @@
         <form action="/stocks/api/v1.0/createStock/" method="post">
             <ul>
                 <li>
-                    <label for="ticker_create">Ticker:</label>
-                    <input type="text" id="ticker_create" name="ticker">
+                    <label for="create_item">Ticker:</label>
+                    <input type="text" id="create_item" name="ticker">
                 </li>
                 <li class="button">
-                    <button type="submit">Create Item</button>
+                    <button type="submit" id="create_button">Create Item</button>
                 </li>
             </ul>
         </form>
 
 
-        <form action="/stocks/api/v1.0/getStock/" method="get">
+        <form action="">
             <ul>
                 <li>
-                    <label for="ticker_read">Ticker:</label>
-                    <input type="text" id="ticker_read" name="ticker">
+                    <label for="read_ticker">Ticker:</label>
+                    <input type="text" id="read_ticker" name="ticker">
                 </li>
                 <li class="button">
-                    <button type="submit">Read Item</button>
+                    <button type="button" id="read_button">Read Item</button>
                 </li>
             </ul>
         </form>
 
-        <form action="/stocks/api/v1.0/updateStock/" method="put">
+
+      <form action="/stocks/api/v1.0/updateStock/" method="put">
             <ul>
                 <li>
-                    <label for="ticker_update">Ticker:</label>
-                    <input type="text" id="ticker_update" name="ticker">
+                    <label for="update_item">Ticker:</label>
+                    <input type="text" id="update_item" name="ticker">
                 </li>
                 <li class="button">
                     <button type="submit">Update Item</button>
@@ -50,8 +50,8 @@
         <form action="/stocks/api/v1.0/deleteStock/" method="delete">
             <ul>
                 <li>
-                    <label for="ticker_delete">Ticker:</label>
-                    <input type="text" id="ticker_delete" name="ticker">
+                    <label for="delete_item">Ticker:</label>
+                    <input type="text" id="delete_item" name="ticker">
                 </li>
                 <li class="button">
                     <button type="submit">Delete Item</button>
@@ -59,6 +59,7 @@
             </ul>
         </form>
 
+        <label id="message"></label>
 
     </body>
 </html>

@@ -70,3 +70,11 @@ button {
      between the labels and their text fields */
   margin-left: .5em;
 }
+
+
+
+#message {
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
+}
