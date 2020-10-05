@@ -7,6 +7,7 @@ window.onload = function() {
     }
 
 
+
     /*
      *  CREATE
      */
@@ -19,16 +20,6 @@ window.onload = function() {
         console.log('Sending POST request');
 
         const XHR = new XMLHttpRequest();
-        let urlEncodedData = "", urlEncodedDataPairs = [], name;
-
-        // Turn the data object into an array of URL-encoded key/value pairs.
-        for(name in data) {
-            urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-        }
-
-        // Combine the pairs into a single string and replace all %-encoded spaces to
-        // the '+' character; matches the behaviour of browser form submissions.
-        urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
         // Define what happens on successful data submission
         XHR.addEventListener('load', function(event) {
@@ -42,9 +33,9 @@ window.onload = function() {
 
         // setup and send POST request
         let url = 'http://localhost:8080/stocks/api/v1.0/createStock/' + ticker;
-        XHR.open('POST', url);
-        XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        XHR.send(urlEncodedData);
+        XHR.open("POST", url);
+        XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        XHR.send(JSON.stringify(data));
     }
 
     // attach the function to the button
@@ -54,6 +45,7 @@ window.onload = function() {
         let value = createValue.value;
         createItem(ticker, {key, value});
     } );
+
 
 
     /*
@@ -77,6 +69,7 @@ window.onload = function() {
             setMessage('something went wrong');
         } );
 
+        // setup and send request
         let url = 'http://localhost:8080/stocks/api/v1.0/getStock/' + ticker;
         XHR.open('GET', url);
         XHR.send();
@@ -90,6 +83,78 @@ window.onload = function() {
 
 
 
+    /*
+     *  UPDATE
+     */
+    const updateButton = document.getElementById('update_button');
+    const updateTicker = document.getElementById('update_ticker');
+    const updateKey = document.getElementById('update_key');
+    const updateValue = document.getElementById('update_value');
+
+    function updateItem(ticker, data) {
+        console.log('Sending PUT request');
+
+        const XHR = new XMLHttpRequest();
+
+        // Define what happens on successful data submission
+        XHR.addEventListener('load', function(event) {
+            setMessage(XHR.response);
+        } );
+
+        // Define what happens in case of error
+        XHR.addEventListener('error', function(event) {
+            setMessage('something went wrong');
+        } );
+
+        // setup and send PUT request
+        let url = 'http://localhost:8080/stocks/api/v1.0/updateStock/' + ticker;
+        XHR.open("PUT", url);
+        XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        XHR.send(JSON.stringify(data));
+    }
+
+    // attach the function to the button
+    updateButton.addEventListener( 'click', function() {
+        let ticker = updateTicker.value;
+        let key = updateKey.value;
+        let value = updateValue.value;
+        updateItem(ticker, {key, value});
+    } );
+
+
+
+    /*
+     *  DELETE
+     */
+    const deleteButton = document.getElementById('delete_button');
+    const deleteTicker = document.getElementById('delete_ticker');
+
+    function deleteItem(ticker) {
+        console.log('Sending DELETE request');
+
+        const XHR = new XMLHttpRequest();
+
+        // Define what happens on successful data submission
+        XHR.addEventListener( 'load', function(event) {
+            setMessage(XHR.response);
+        } );
+
+        // Define what happens in case of error
+        XHR.addEventListener( 'error', function(event) {
+            setMessage('something went wrong');
+        } );
+
+        // setup and send request
+        let url = 'http://localhost:8080/stocks/api/v1.0/deleteStock/' + ticker;
+        XHR.open('DELETE', url);
+        XHR.send();
+    }
+
+    // attach the function to the button
+    deleteButton.addEventListener( 'click', function() {
+        let ticker = deleteTicker.value;
+        deleteItem(ticker);
+    } );
 
 
 
