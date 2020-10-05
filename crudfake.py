@@ -72,8 +72,10 @@ class crud:
             Exception on failure
         '''
         try:
-            result = self.collection.update(old, {"$set" : new})
-            result = json_util.dumps(result)
+            doc = self.data[old['Ticker']]
+            for key in new:
+                doc[key] = new[key]
+            result = True
         except Exception as e:
             result = e
         return result
@@ -91,8 +93,8 @@ class crud:
             Exception on fail
         '''
         try:
-            doc = self.collection.find_one(query)
-            result = self.collection.delete_one(doc)
+            del self.data[query['Ticker']]
+            result = true
         except Exception as e:
             result = e
         return result
