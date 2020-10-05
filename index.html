@@ -8,14 +8,18 @@
     </head>
     <body>
 
-        <form action="/stocks/api/v1.0/createStock/" method="post">
+        <form action="">
             <ul>
                 <li>
-                    <label for="create_item">Ticker:</label>
-                    <input type="text" id="create_item" name="ticker">
+                    <label for="create_ticker">Ticker:</label>
+                    <input type="text" id="create_ticker" name="ticker">
+                    <label for="create_key">Key:</label>
+                    <input type="text" id="create_key" name="key">
+                    <label for="create_value">Value:</label>
+                    <input type="text" id="create_value" name="value">
                 </li>
                 <li class="button">
-                    <button type="submit" id="create_button">Create Item</button>
+                    <button type="button" id="create_button">Create Item</button>
                 </li>
             </ul>
         </form>
@@ -34,27 +38,31 @@
         </form>
 
 
-      <form action="/stocks/api/v1.0/updateStock/" method="put">
+      <form action="">
             <ul>
                 <li>
-                    <label for="update_item">Ticker:</label>
-                    <input type="text" id="update_item" name="ticker">
+                    <label for="update_ticker">Ticker:</label>
+                    <input type="text" id="update_ticker" name="ticker">
+                    <label for="update_key">Key:</label>
+                    <input type="text" id="update_ticker" name="ticker">
+                    <label for="update_value">Value:</label>
+                    <input type="text" id="update_ticker" name="ticker">
                 </li>
                 <li class="button">
-                    <button type="submit">Update Item</button>
+                    <button type="button">Update Item</button>
                 </li>
             </ul>
         </form>
 
 
-        <form action="/stocks/api/v1.0/deleteStock/" method="delete">
+        <form action="">
             <ul>
                 <li>
-                    <label for="delete_item">Ticker:</label>
-                    <input type="text" id="delete_item" name="ticker">
+                    <label for="delete_ticker">Ticker:</label>
+                    <input type="text" id="delete_ticker" name="ticker">
                 </li>
                 <li class="button">
-                    <button type="submit">Delete Item</button>
+                    <button type="button">Delete Item</button>
                 </li>
             </ul>
         </form>
