@@ -69,7 +69,6 @@ class stocksRestAPI(Bottle):
             result = crud.create(document)
         except Exception as e:
             result = e
-        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
@@ -92,7 +91,6 @@ class stocksRestAPI(Bottle):
             result = crud.read({"Ticker" : ticker_symbol})
         except Exception as e:
             result = e
-        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
@@ -119,7 +117,6 @@ class stocksRestAPI(Bottle):
             result = crud.update({"Ticker": ticker_symbol}, document)
         except Exception as e:
             result = e
-        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
