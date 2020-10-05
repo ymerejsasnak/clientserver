@@ -94,7 +94,7 @@ class crud:
         '''
         try:
             del self.data[query['Ticker']]
-            result = true
+            result = True
         except Exception as e:
             result = e
         return result

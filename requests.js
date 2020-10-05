@@ -43,7 +43,9 @@ window.onload = function() {
         let ticker = createTicker.value;
         let key = createKey.value;
         let value = createValue.value;
-        createItem(ticker, {key, value});
+        let doc = {};
+        doc[key] = value;
+        createItem(ticker, doc);
     } );
 
 
@@ -118,7 +120,9 @@ window.onload = function() {
         let ticker = updateTicker.value;
         let key = updateKey.value;
         let value = updateValue.value;
-        updateItem(ticker, {key, value});
+        let doc = {};
+        doc[key] = value;
+        updateItem(ticker, doc);
     } );
 
 
