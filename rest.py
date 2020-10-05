@@ -13,10 +13,17 @@ import json
 from bson import json_util
 import datetime
 import bottle
-from bottle import route, run, request, abort, put, Bottle
+from bottle import route, run, request, response, static_file, abort, put, Bottle
 
 # mongo interface class from crud.py
-from crud import mongoCRUD
+#from crud import mongoCRUD
+
+
+#########   **TEMPORARY**
+from crudfake import crud as mongoCRUD
+##########
+
+
 
 
 class stocksRestAPI(Bottle):
@@ -62,6 +69,7 @@ class stocksRestAPI(Bottle):
             result = crud.create(document)
         except Exception as e:
             result = e
+        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
@@ -84,6 +92,7 @@ class stocksRestAPI(Bottle):
             result = crud.read({"Ticker" : ticker_symbol})
         except Exception as e:
             result = e
+        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
@@ -104,11 +113,13 @@ class stocksRestAPI(Bottle):
         Returns:
             result as string
         '''
+
         try:
             document = request.json
             result = crud.update({"Ticker": ticker_symbol}, document)
         except Exception as e:
             result = e
+        response.set_header('Access-Control-Allow-Origin', '*')
         return str(result) + "\n"
 
 
