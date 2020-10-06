@@ -44,6 +44,11 @@ class stocksRestAPI(Bottle):
         self.route("/stocks/api/v1.0/getStock/<ticker_symbol>", method="GET", callback=self.read)
         self.route("/stocks/api/v1.0/updateStock/<ticker_symbol>", method="PUT", callback=self.update)
         self.route("/stocks/api/v1.0/deleteStock/<ticker_symbol>", method="DELETE", callback=self.delete)
+        self.route('/<filename>', callback=self.static)
+
+
+    def static(self, filename):
+        return static_file(filename, root='')
 
 
     def create(self, ticker_symbol):
