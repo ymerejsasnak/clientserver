@@ -9,7 +9,7 @@ from rest import stocksRestAPI
 
 class testRestMethods(unittest.TestCase):
     '''
-    Test cases for the methods in mongoCRUD class in crud.property
+    Very basic beginning of tests for the methods in stocksRestAPI
 
     *note that url routing is not currently tested
     '''
@@ -28,7 +28,7 @@ class testRestMethods(unittest.TestCase):
 
     def test_delete(self):
         self.rest.create({"test": "test"})
-        #self.assertIsInstance(self.crud.delete({"test": "test"}), DeleteResult)
+        self.assertIsInstance(self.rest.delete({"test": "test"}), str)
 
 
 if __name__ == '__main__':

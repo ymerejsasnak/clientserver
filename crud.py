@@ -6,7 +6,6 @@ Python to MongoDB interface
 Used as part of Category 1 and 3
 '''
 
-
 import json
 from bson import json_util
 from pymongo import MongoClient
@@ -49,8 +48,12 @@ class mongoCRUD:
             db_name: database name to use
             collection_name: collection name to use
         '''
-        self.db = self.client[db_name]
-        self.collection = self.db[collection_name]
+        try:
+            self.db = self.client[db_name]
+            self.collection = self.db[collection_name]
+        except:
+            print("Error finding database or collection")
+            exit()
 
 
     def create(self, document):

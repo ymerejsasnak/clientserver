@@ -8,7 +8,6 @@ Microserver with RESTful API
 Used as part of Category 1 and 3
 '''
 
-
 import json
 from bson import json_util
 import datetime
@@ -17,9 +16,6 @@ from bottle import route, run, request, response, static_file, abort, put, Bottl
 
 # mongo interface class from crud.py
 from crud import mongoCRUD
-
-
-
 
 
 class stocksRestAPI(Bottle):
@@ -44,6 +40,9 @@ class stocksRestAPI(Bottle):
 
 
     def static(self, filename):
+        '''
+        Callback that serves a static file (from filename input) at root directory.
+        '''
         return static_file(filename, root='')
 
 
@@ -112,7 +111,6 @@ class stocksRestAPI(Bottle):
         Returns:
             result as string
         '''
-
         try:
             document = request.json
             result = crud.update({"Ticker": ticker_symbol}, document)
@@ -143,13 +141,18 @@ class stocksRestAPI(Bottle):
         return str(result) + "\n"
 
 
-
-
+'''
+    MAIN FUNCTION
+    connect to MongoDB and start Bottle server
+'''
 if __name__ == '__main__':
+
+    # instantiate and set up connection to mongodb
     crud = mongoCRUD()
     crud.connect('localhost', 27017)
     crud.set_collection('market', 'stocks')
 
+    # instantiate and run server on typical local host
     rest = stocksRestAPI()
     rest.setup_routing()
     rest.run(host='localhost', port=8080, reloader=True)
