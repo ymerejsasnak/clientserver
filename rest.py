@@ -16,12 +16,8 @@ import bottle
 from bottle import route, run, request, response, static_file, abort, put, Bottle
 
 # mongo interface class from crud.py
-#from crud import mongoCRUD
+from crud import mongoCRUD
 
-
-#########   **TEMPORARY**
-from crudfake import crud as mongoCRUD
-##########
 
 
 
